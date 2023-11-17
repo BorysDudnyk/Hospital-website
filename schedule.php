@@ -42,7 +42,7 @@
                     <td class="work-day"><p>10:00-16:00</p></td>
                     <td class="work-day"><p>10:00-17:00</p></td>
                     <td class="work-day"><p>12:00-14:00</p></td>
-                    <td class="work-day"><p>14:00-!7:00</p></td>
+                    <td class="work-day"><p>14:00-17:00</p></td>
                     <td class="holiday"><p>Вихідний</p></td>
                     
                 </tr>
@@ -53,7 +53,7 @@
                     <td class="work-day"><p>12:00 - 16:00</p></td>
                     <td class="holiday"><p>Вихідний</p></td>
                     <td class="work-day"><p>12:00 - 14:00</p></td>
-                    <td class="work-day"><p>14:00 - !9:00</p></td>
+                    <td class="work-day"><p>14:00 - 19:00</p></td>
                     <td class="holiday"><p>Вихідний</p></td>
                 </tr>
                 <tr>
@@ -63,8 +63,8 @@
                     <td class="work-day"><p>12:00 - 16:00</p></td>
                     <td class="holiday"><p>Вихідний</p></td>
                     <td class="work-day"><p>12:00 - 14:00</p></td>
-                    <td class="work-day"><p>14:00 - !9:00</p></td>
-                    <td class="work-day"><p>14:30 - !6:30</p></td>
+                    <td class="work-day"><p>14:00 - 19:00</p></td>
+                    <td class="work-day"><p>14:30 - 16:30</p></td>
                 </tr>
             </table>       
         </div>
