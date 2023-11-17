@@ -7,6 +7,7 @@
     <title>Реєстратура поліклініки</title>
     <link rel="stylesheet" href="style/reset.css"> 
     <link rel="stylesheet" href="style/register/register_style.css">
+    <script src="scripts/day_and_time_of_reception.js"></script>
 </head> 
 <body> 
     <div class="header">
@@ -20,62 +21,119 @@
         <p><a href="">Соціальні мережі</a></p>
         <p><a href="">Платні послуги</a></p>
     </div>
-    <div >
+    <div class="main-block">
         <div class="main-container">
             <div class="main-text">
-                <h2>Запис на прийом</h2> 
+                <h2>Запис на консультацію</h2> 
                 <p>Для запису на прийом з лікарем необхідно зателефонувати в нашу реєстратуру або відвідати нашу поліклініку особисто. Для зручності, ми також надаємо можливість запису на прийом через наш веб-сайт.</p> 
-                <div class="contact">
+                <div class="contact-container">
+                    <div class="contact">
+                        <form method="post">
+                            <label>ПІБ:</label>
+                            <input type="text" name="name" required>
+                
+                            <label>Телефон:</label>
+                            <input type="tel" name="phone" required>
+                
+                            <label>Email:</label>
+                            <input type="email" name="email" required>
+                
+                            <label>Виберіть лікаря</label>
+                            <select type="text" name="doctor" id="doctorSelect" required>
+                                <option value="">Виберіть лікаря</option>
+                                <option value="doctorSmith">Доктор Сміт</option>
+                                <option value="doctorGarcia">Доктор Гарсіа</option>
+                                <option value="doctorBrown">Доктор Браун</option>
+                            </select>                            
+                
+                            <label>День прийому:</label>
+                            <select type="text" name="appointmentDay" id="appointmentDay" required>
+                                <option value="">Виберіть день неділі</option>
+                            </select>
+                
+                            <label>Час прийому:</label>
+                            <select name="appointmentTime" id="appointmentTime" required>
+                            <option type="submit" value="">Виберіть час відвідування</option>
+                            </select>
+                
+                            <input type="submit" name="formSubmit" value="Відправити">
+                        </form>
 
-                    <!--<form method="get">
-                        <label for="name">Ім'я:</label>
-                        <input type="text" id="name" name="name" required>
-
-                        <label for="surname">Прізвище:</label>
-                        <input type="text" id="surname" name="surname" required>
-
-                        <label for="phone">Телефон:</label>
-                        <input type="tel" id="phone" name="phone" required>
-
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-
-                        <label for="doctor">Лікар:</label>
-                        <select id="doctor" name="doctor" required>
-                            <option value="">Виберіть лікаря</option>
-                            <option value="Лікар 1">Доктор Сміт</option>
-                            <option value="Лікар 2">Доктор Гарсіа</option>
-                            <option value="Лікар 3">Доктор Браун</option>
-                        </select>
-                        <button><p>Записатися</p></button>
-                    </form>-->
-
-                    <form method="get">
-                        <label>Ім'я:</label> <br>
-                        <input type="text" name="name" required> 
-
-                        <label>Прізвище:</label> <br>
-                        <input type="text" name="surname" required> 
+                        <?php
+                            if (isset($_POST['formSubmit'])) {
+                                $name = $_POST["name"];
+                                $phone = $_POST['phone'];
+                                $email = $_POST['email'];
+                                $doctor = $_POST['doctor'];
+                                $appointmentDay = $_POST['appointmentDay'];
+                                $appointmentTime = $_POST['appointmentTime'];
+                            
+                                // Переконайтеся, що тип поля appointmentTime в базі даних - VARCHAR
+                            
+                                // Форматуємо рядок часу для зберігання в базі даних
+                                list($startHour, $startMinute, $endHour, $endMinute) = sscanf($appointmentTime, "%d:%d-%d:%d");
+                                $formattedAppointmentTime = sprintf('%02d:%02d-%02d:%02d', $startHour, $startMinute, $endHour, $endMinute);
+                            
+                                $mysqli = new mysqli("localhost", "root", "", "hospital_website");
+                                if ($mysqli->connect_errno) {
+                                    echo "Вибачте, виникла помилка на сайті";
+                                    exit;
+                                }
+                            
+                                $name = $mysqli->real_escape_string($name);
+                                $phone = $mysqli->real_escape_string($phone);
+                                $email = $mysqli->real_escape_string($email);
+                                $doctor = $mysqli->real_escape_string($doctor);
+                                $appointmentDay = $mysqli->real_escape_string($appointmentDay);
+                                $appointmentTime = $mysqli->real_escape_string($formattedAppointmentTime); // Використовуємо відформатований час
+                            
+                                $query = "INSERT INTO registration (name, phone, email, doctor, appointmentDay, appointmentTime) 
+                                        VALUES ('$name', '$phone', '$email', '$doctor', '$appointmentDay', '$appointmentTime')";
+                            
+                                $result = $mysqli->query($query);
+                                if ($result) {
+                                    echo 'Реєстрація пройшла успішно!<br>';
+                                } else {
+                                    echo "Помилка виконання запиту: " . $mysqli->error;
+                                }
+                            
+                                $mysqli->close();
+                            }
+                            ?>
                         
-                        <label>Телефон:</label> <br>
-                        <input type="tel" name="phone" required> 
-
-                        <label>Email:</label> <br>
-                        <input type="email" name="email" required> 
-
-                        <label>Виберіть лікаря</label> <br>
-                        <select type="text" name="doctor" required>
-                            <option>Виберіть лікаря</option>
-                            <option>Доктор Сміт</option>
-                            <option>Доктор Гарсіа</option>
-                            <option>Доктор Браун</option>
-                        </select> 
-                        <br>
-                        <input type="submit" name="formSubmit" value="Відправити">
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="register-tabl">
+            <h2>Консультації на цей тиждень</h2> 
+            <?php
+                $mysqli = new mysqli("localhost", "root", "", "hospital_website");
+                if ($mysqli->connect_errno) {
+                    echo "Вибачте, виникла помилка на сайті";
+                    exit;
+                }
+
+                $query = "SELECT name, doctor, appointmentDay, appointmentTime FROM registration";
+                $result = $mysqli->query($query);
+
+                if ($result) {
+                    echo "<table border='1'>";
+                    echo "<tr><th>Ім'я</th><th>Лікар</th><th>День</th><th>Час</th></tr>";
+
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr><td>".$row["name"]."</td><td>".$row["doctor"]."</td><td>".$row["appointmentDay"]."</td><td>".$row["appointmentTime"]."</td></tr>";
+                    }
+
+                    echo "</table>";
+                } else {
+                    echo "0 результатів";
+                }
+
+                $mysqli->close();
+            ?>   
+        </div>
+
     </div>
     <div class="sidebar">
         <div class="contacts">
@@ -100,31 +158,3 @@
     </div>
 </body> 
 </html>
-
-<?php
-if(isset($_GET['formSubmit'])) {
-    $name = $_GET["name"];
-    $surname = $_GET['surname'];
-    $phone = $_GET['phone'];
-    $email = $_GET['email'];
-    $doctor = $_GET['doctor'];
-    $mysqli = new mysqli("localhost", "root", "", "hospital_website");
-    if ($mysqli->connect_errno) {
-        echo "Вибачте, виникла помилка на сайті";
-        exit;
-    }
-    $name = $mysqli->real_escape_string($name);
-    $surname = $mysqli->real_escape_string($surname);
-    $phone = $mysqli->real_escape_string($phone);
-    $email = $mysqli->real_escape_string($email);
-    $doctor = $mysqli->real_escape_string($doctor);
-    $query = "INSERT INTO registration (name,surname,phone,email,doctor) VALUES ('$name','$surname','$phone','$email','$doctor')";
-    $result = $mysqli->query($query);
-    if ($result) {
-        print('Реєстрація пройшла успішно !'. '<br>');
-    } else {
-        echo "Помилка виконання запиту: " . $mysqli->error;
-    }
-    $mysqli->close();
-}
-?>
