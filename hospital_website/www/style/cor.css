@@ -1,0 +1,36 @@
+body{
+    background: #aac9e2;
+}
+.main-container{
+    background: rgb(255, 255, 255);
+border: 2px solid rgb(33, 29, 255);
+min-height: 400px;
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: 100px;
+     padding-top: 100px;
+}
+.main-container h2 {
+    margin-bottom: 40px;
+    text-align: center;
+}
+.main-container button{
+   margin-left: 36%; 
+   background-color: #c1dbf6; 
+        color: #cfa3a3; 
+        padding: 10px 20px; 
+        border-radius: 5px; 
+        border: none; 
+        cursor: pointer; 
+        margin-top: 10px;
+        
+}
+.main-container a{
+    color: black;
+    font-size: 17px;
+    text-decoration: none;
+}
+.main-container h1, .main-container h3 {
+    text-align: center;
+
+}
