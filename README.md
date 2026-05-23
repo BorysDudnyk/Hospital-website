@@ -85,13 +85,13 @@ The project uses a MySQL database named `hospital_website`.
 ## Screenshots
 
 ### Home Page
-![Home Page](screenshot/ScreenShotTool-1.png)
+![Home Page](ScreenShot/ScreenShotTool-1.png)
 
 ### Appointment Registration
-![Register Page](screenshot/ScreenShotTool-2.png)
+![Register Page](ScreenShot/ScreenShotTool-2.png)
 
 ### Doctors Schedule
-![Schedule Page](screenshot/ScreenShotTool-3.png)
+![Schedule Page](ScreenShot/ScreenShotTool-3.png)
 
 ---
 
